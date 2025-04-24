@@ -1,0 +1,22 @@
+body {
+    width: auto;
+    height: auto;
+    background: linear-gradient(180deg, #111723 0%, #131A36 38.83%, #251829 78.45%);
+    margin: 0;
+    padding: 0;
+}
+
+#rodape {
+    background-color: #000;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    position: fixed;
+    height: 11.76%;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    margin-bottom: 0px;
+}
