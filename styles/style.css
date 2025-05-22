@@ -77,3 +77,19 @@ body {
       font-size: clamp(0.5rem, 2vw, 1rem);
     }
   }
+
+  .gradient{
+    background: linear-gradient(90deg, #E017C5 2.02%, #8343C5 52.31%, #545AC5 77.46%, #3D429C 102.61%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .gradient h1{
+    font-feature-settings: 'liga' off, 'clig' off;
+    font-family: "IBM Plex Sans Devanagari";
+    font-size: 200px;
+    font-style: normal;
+    font-weight: 700;
+   line-height: 128px; /* 64% */
+  }
