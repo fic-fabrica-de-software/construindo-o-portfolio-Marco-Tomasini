@@ -51,6 +51,8 @@ body {
 
 .flex {
     display: flex;
+    margin: 0;
+    padding: 0;
 }
 
 .grid{
@@ -88,8 +90,28 @@ body {
   .gradient h1{
     font-feature-settings: 'liga' off, 'clig' off;
     font-family: "IBM Plex Sans Devanagari";
-    font-size: 200px;
+    font-size: 12.5rem;
     font-style: normal;
     font-weight: 700;
-   line-height: 128px; /* 64% */
+   line-height: 8rem; /* 64% */
+
+   margin-bottom: 0;
+   margin-left: 6.813rem;
+   margin-top: 14.563rem;
+  }
+
+  .gradient h2{
+    font-feature-settings: 'liga' off, 'clig' off;
+    font-family: "IBM Plex Sans Devanagari";
+    font-size: 8rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 128%; /* 128% */
+
+    margin-top: 0;
+    margin-left: 7.75rem;
+  }
+
+  #perfil{
+    margin-left: 14rem;
   }
