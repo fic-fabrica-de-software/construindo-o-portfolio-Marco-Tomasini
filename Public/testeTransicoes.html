@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Transições com View Transition API</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: sans-serif; background: #111; color: white; padding: 2rem; }
+    h1 { margin-bottom: 1rem; text-align: center; }
+    .buttons { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; margin-bottom: 2rem; }
+    button {
+      background: #333;
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      cursor: pointer;
+      border-radius: 8px;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background: #555;
+    }
+    main {
+      view-transition-name: main-content;
+      padding: 2rem;
+      background: #222;
+      border-radius: 1rem;
+      min-height: 300px;
+      text-align: center;
+      font-size: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      justify-content: center;
+      align-items: center;
+    }
+    .card {
+      background: #333;
+      padding: 1.5rem;
+      border-radius: 1rem;
+      width: 80%;
+      max-width: 600px;
+      text-align: left;
+      font-size: 1rem;
+      box-shadow: 0 0 10px rgba(0,0,0,0.4);
+    }
+  </style>
+</head>
+<body>
+  <h1>Galeria de Transições</h1>
+  <div class="buttons">
+    <button onclick="setTransition('flip')">Flip</button>
+    <button onclick="setTransition('zoom')">Zoom</button>
+    <button onclick="setTransition('parallax')">Parallax</button>
+    <button onclick="setTransition('curtain')">Cortina</button>
+    <button onclick="setTransition('blur')">Desfoque</button>
+    <button onclick="setTransition('ripple')">Ripple</button>
+    <button onclick="setTransition('vertical')">Vertical</button>
+    <button onclick="setTransition('rotate')">Rotate</button>
+    <button onclick="setTransition('wind')">Esmaecer</button>
+    <button onclick="setTransition('center')">Retrair</button>
+    <button onclick="setTransition('bounce')">Bounce</button>
+    <button onclick="setTransition('scale-rotate')">Scale+Rotate</button>
+    <button onclick="setTransition('slide-fade')">Slide+Fade</button>
+    <button onclick="setTransition('swirl')">Swirl</button>
+    <button onclick="setTransition('expand-contract')">Expand+Contract</button>
+    <button onclick="setTransition('flip-vertical')">Flip Vertical</button>
+    <button onclick="setTransition('stretch')">Stretch</button>
+    <button onclick="setTransition('pulse')">Pulse</button>
+    <button onclick="setTransition('slide-zoom')">Slide+Zoom</button>
+    <button onclick="setTransition('rotate-fade')">Rotate+Fade</button>
+  </div>
+
+  <main id="main-content">
+    <div class="card">
+      <h2>Título do conteúdo</h2>
+      <p>Este é um exemplo de conteúdo mais elaborado, com parágrafos e áreas destacadas. Serve para visualizar melhor os efeitos de transição aplicados.</p>
+    </div>
+    <div class="card">
+      <h2>Seção adicional</h2>
+      <p>Você pode adicionar várias seções para perceber como o efeito interage com layouts mais complexos.</p>
+    </div>
+  </main>
+
+  <script>
+    let counter = 0;
+
+    const transitions = {
+      flip: `
+        @keyframes flip-out {
+          from { transform: rotateY(0deg); opacity: 1; }
+          to   { transform: rotateY(90deg); opacity: 0; }
+        }
+        @keyframes flip-in {
+          from { transform: rotateY(-90deg); opacity: 0; }
+          to   { transform: rotateY(0deg); opacity: 1; }
+        }
+        ::view-transition-old(main-content) {
+          animation: flip-out 0.6s ease-in forwards;
+          transform-origin: left center;
+        }
+        ::view-transition-new(main-content) {
+          animation: flip-in 0.6s ease-out forwards;
+          transform-origin: right center;
+        }
+      `,
+      zoom: `
+        @keyframes zoom-out {
+          from { transform: scale(1); opacity: 1; }
+          to   { transform: scale(0.8); opacity: 0; }
+        }
+        @keyframes zoom-in {
+          from { transform: scale(1.2); opacity: 0; }
+          to   { transform: scale(1); opacity: 1; }
+        }
+        ::view-transition-old(main-content) {
+          animation: zoom-out 0.5s ease-in-out both;
+        }
+        ::view-transition-new(main-content) {
+          animation: zoom-in 0.5s ease-in-out both;
+        }
+      `,
+      parallax: `
+        @keyframes slide-old {
+          from { transform: translateX(0); }
+          to   { transform: translateX(-30%); }
+        }
+        @keyframes slide-new {
+          from { transform: translateX(100%); }
+          to   { transform: translateX(0); }
+        }
+        ::view-transition-old(main-content) {
+          animation: slide-old 0.7s ease-in both;
+        }
+        ::view-transition-new(main-content) {
+          animation: slide-new 0.7s ease-out both;
+        }
+      `,
+      curtain: `
+        @keyframes curtain-open {
+          from { clip-path: inset(0 0 100% 0); }
+          to   { clip-path: inset(0 0 0 0); }
+        }
+        @keyframes curtain-close {
+          from { clip-path: inset(0 0 0 0); }
+          to   { clip-path: inset(0 0 100% 0); }
+        }
+        ::view-transition-old(main-content) {
+          animation: curtain-close 0.8s ease-in both;
+        }
+        ::view-transition-new(main-content) {
+          animation: curtain-open 0.8s ease-out both;
+        }
+      `,
+      blur: `
+        @keyframes blur-out {
+          from { filter: blur(0px); opacity: 1; }
+          to   { filter: blur(10px); opacity: 0; }
+        }
+        @keyframes blur-in {
+          from { filter: blur(10px); opacity: 0; }
+          to   { filter: blur(0px); opacity: 1; }
+        }
+        ::view-transition-old(main-content) {
+          animation: blur-out 0.6s ease both;
+        }
+        ::view-transition-new(main-content) {
+          animation: blur-in 0.6s ease both;
+        }
+      `,
+      ripple: `
+        @keyframes ripple-in {
+          from {
+            clip-path: circle(0% at var(--ripple-x) var(--ripple-y));
+            opacity: 0;
+          }
+          to {
+            clip-path: circle(150% at var(--ripple-x) var(--ripple-y));
+            opacity: 1;
+          }
+        }
+        @keyframes ripple-out {
+          from {
+            clip-path: circle(150% at var(--ripple-x) var(--ripple-y));
+            opacity: 1;
+          }
+          to {
+            clip-path: circle(0% at var(--ripple-x) var(--ripple-y));
+            opacity: 0;
+          }
+        }
+        main {
+          --ripple-x: 50%;
+          --ripple-y: 50%;
+        }
+        ::view-transition-old(main-content) {
+          animation: ripple-out 0.8s ease both;
+        }
+        ::view-transition-new(main-content) {
+          animation: ripple-in 0.8s ease both;
+        }
+      `,
+      vertical: `
+        @keyframes slide-up {
+          from { transform: translateY(0); opacity: 1; }
+          to { transform: translateY(-20%); opacity: 0; }
+        }
+        @keyframes slide-down {
+          from { transform: translateY(20%); opacity: 0; }
+          to { transform: translateY(0); opacity: 1; }
+        }
+        ::view-transition-old(main-content) {
+          animation: slide-up 0.6s ease-in both;
+        }
+        ::view-transition-new(main-content) {
+          animation: slide-down 0.6s ease-out both;
+        }
+      `,
+      rotate: `
+        @keyframes rotate-out {
+          from { transform: rotate(0deg); opacity: 1; }
+          to   { transform: rotate(45deg); opacity: 0; }
+        }
+        @keyframes rotate-in {
+          from { transform: rotate(-45deg); opacity: 0; }
+          to   { transform: rotate(0deg); opacity: 1; }
+        }
+        ::view-transition-old(main-content) {
+          animation: rotate-out 0.6s ease-in both;
+        }
+        ::view-transition-new(main-content) {
+          animation: rotate-in 0.6s ease-out both;
+        }
+      `,
+      wind: `
+        @keyframes wind-out {
+          from { transform: translateX(0); opacity: 1; }
+          to { transform: translateX(-100px); opacity: 0; }
+        }
+        @keyframes wind-in {
+          from { transform: translateX(100px); opacity: 0; }
+          to { transform: translateX(0); opacity: 1; }
+        }
+        ::view-transition-old(main-content) {
+          animation: wind-out 0.5s ease-in both;
+        }
+        ::view-transition-new(main-content) {
+          animation: wind-in 0.5s ease-out both;
+        }
+      `,
+      center: `
+        @keyframes center-out {
+          from { transform: scale(1); opacity: 1; }
+          to   { transform: scale(0); opacity: 0; }
+        }
+        @keyframes center-in {
+          from { transform: scale(0); opacity: 0; }
+          to   { transform: scale(1); opacity: 1; }
+        }
+        ::view-transition-old(main-content) {
+          animation: center-out 0.5s ease-in both;
+        }
+        ::view-transition-new(main-content) {
+          animation: center-in 0.5s ease-out both;
+        }
+      `,
+
+      // ===== Novas transições criativas =====
+      bounce: `
+        @keyframes bounce-out {
+          0% { transform: translateY(0); opacity: 1; }
+          50% { transform: translateY(-30px); opacity: 0.5; }
+          100% { transform: translateY(100%); opacity: 0; }
+        }
+        @keyframes bounce-in {
+          0% { transform: translateY(100%); opacity: 0; }
+          50% { transform: translateY(-30px); opacity: 0.5; }
+          100% { transform: translateY(0); opacity: 1; }
+        }
+        ::view-transition-old(main-content) {
+          animation: bounce-out 0.8s ease forwards;
+        }
+        ::view-transition-new(main-content) {
+          animation: bounce-in 0.8s ease forwards;
+        }
+      `,
+      'scale-rotate': `
+        @keyframes scale-rotate-out {
+          from { transform: scale(1) rotate(0deg); opacity: 1; }
+          to   { transform: scale(0.5) rotate(90deg); opacity: 0; }
+        }
+        @keyframes scale-rotate-in {
+          from { transform: scale(1.5) rotate(-90deg); opacity: 0; }
+          to   { transform: scale(1) rotate(0deg); opacity: 1; }
+        }
+        ::view-transition-old(main-content) {
+          animation: scale-rotate-out 0.7s ease forwards;
+          transform-origin: center center;
+        }
+        ::view-transition-new(main-content) {
+          animation: scale-rotate-in 0.7s ease forwards;
+          transform-origin: center center;
+        }
+      `,
+      'slide-fade': `
+        @keyframes slide-fade-out {
+          from { transform: translateX(0); opacity: 1; }
+          to   { transform: translateX(-100%); opacity: 0; }
+        }
+        @keyframes slide-fade-in {
+          from { transform: translateX(100%); opacity: 0; }
+          to   { transform: translateX(0); opacity: 1; }
+        }
+        ::view-transition-old(main-content) {
+          animation: slide-fade-out 0.6s ease forwards;
+        }
+        ::view-transition-new(main-content) {
+          animation: slide-fade-in 0.6s ease forwards;
+        }
+      `,
+      swirl: `
+        @keyframes swirl-out {
+          from { transform: rotate(0deg) scale(1); opacity: 1; }
+          to   { transform: rotate(360deg) scale(0); opacity: 0; }
+        }
+        @keyframes swirl-in {
+          from { transform: rotate(-360deg) scale(0); opacity: 0; }
+          to   { transform: rotate(0deg) scale(1); opacity: 1; }
+        }
+        ::view-transition-old(main-content) {
+          animation: swirl-out 0.9s ease forwards;
+        }
+        ::view-transition-new(main-content) {
+          animation: swirl-in 0.9s ease forwards;
+        }
+      `,
+      'expand-contract': `
+        @keyframes expand-out {
+          from { transform: scale(1); opacity: 1; }
+          to { transform: scale(1.5); opacity: 0; }
+        }
+        @keyframes contract-in {
+          from { transform: scale(0.5); opacity: 0; }
+          to { transform: scale(1); opacity: 1; }
+        }
+        ::view-transition-old(main-content) {
+          animation: expand-out 0.6s ease forwards;
+        }
+        ::view-transition-new(main-content) {
+          animation: contract-in 0.6s ease forwards;
+        }
+      `,
+      'flip-vertical': `
+        @keyframes flip-vert-out {
+          from { transform: rotateX(0deg); opacity: 1; }
+          to { transform: rotateX(90deg); opacity: 0; }
+        }
+        @keyframes flip-vert-in {
+          from { transform: rotateX(-90deg); opacity: 0; }
+          to { transform: rotateX(0deg); opacity: 1; }
+        }
+        ::view-transition-old(main-content) {
+          animation: flip-vert-out 0.6s ease forwards;
+          transform-origin: center center;
+        }
+        ::view-transition-new(main-content) {
+          animation: flip-vert-in 0.6s ease forwards;
+          transform-origin: center center;
+        }
+      `,
+      stretch: `
+        @keyframes stretch-out {
+          from { transform: scaleX(1); opacity: 1; }
+          to { transform: scaleX(0); opacity: 0; }
+        }
+        @keyframes stretch-in {
+          from { transform: scaleX(0); opacity: 0; }
+          to { transform: scaleX(1); opacity: 1; }
+        }
+        ::view-transition-old(main-content) {
+          animation: stretch-out 0.6s ease forwards;
+          transform-origin: left center;
+        }
+        ::view-transition-new(main-content) {
+          animation: stretch-in 0.6s ease forwards;
+          transform-origin: right center;
+        }
+      `,
+      pulse: `
+        @keyframes pulse-out {
+          0% { transform: scale(1); opacity: 1; }
+          50% { transform: scale(1.1); opacity: 0.7; }
+          100% { transform: scale(0); opacity: 0; }
+        }
+        @keyframes pulse-in {
+          0% { transform: scale(0); opacity: 0; }
+          50% { transform: scale(1.1); opacity: 0.7; }
+          100% { transform: scale(1); opacity: 1; }
+        }
+        ::view-transition-old(main-content) {
+          animation: pulse-out 0.8s ease forwards;
+        }
+        ::view-transition-new(main-content) {
+          animation: pulse-in 0.8s ease forwards;
+        }
+      `,
+      'slide-zoom': `
+        @keyframes slide-zoom-out {
+          from { transform: translateX(0) scale(1); opacity: 1; }
+          to { transform: translateX(-100%) scale(0.5); opacity: 0; }
+        }
+        @keyframes slide-zoom-in {
+          from { transform: translateX(100%) scale(1.5); opacity: 0; }
+          to { transform: translateX(0) scale(1); opacity: 1; }
+        }
+        ::view-transition-old(main-content) {
+          animation: slide-zoom-out 0.7s ease forwards;
+        }
+        ::view-transition-new(main-content) {
+          animation: slide-zoom-in 0.7s ease forwards;
+        }
+      `,
+      'rotate-fade': `
+        @keyframes rotate-fade-out {
+          from { transform: rotate(0deg); opacity: 1; }
+          to { transform: rotate(180deg); opacity: 0; }
+        }
+        @keyframes rotate-fade-in {
+          from { transform: rotate(-180deg); opacity: 0; }
+          to { transform: rotate(0deg); opacity: 1; }
+        }
+        ::view-transition-old(main-content) {
+          animation: rotate-fade-out 0.7s ease forwards;
+        }
+        ::view-transition-new(main-content) {
+          animation: rotate-fade-in 0.7s ease forwards;
+        }
+      `
+    };
+
+    const styleTag = document.createElement('style');
+    document.head.appendChild(styleTag);
+
+    async function setTransition(name) {
+      if (!transitions[name]) return alert('Transição desconhecida: ' + name);
+      styleTag.textContent = transitions[name];
+
+      // Para efeito visual diferente, troca o conteúdo
+      counter++;
+      const main = document.getElementById('main-content');
+
+      if (document.startViewTransition) {
+        await document.startViewTransition(() => {
+          main.querySelectorAll('.card h2').forEach((h2, i) => {
+            h2.textContent = `Conteúdo ${counter} - Seção ${i + 1} (${name})`;
+          });
+          main.querySelectorAll('.card p').forEach((p, i) => {
+            p.textContent = `Este é um texto alterado para a transição "${name}". Atualização número ${counter}.`;
+          });
+        });
+      } else {
+        // fallback simples
+        main.style.opacity = 0;
+        setTimeout(() => {
+          main.querySelectorAll('.card h2').forEach((h2, i) => {
+            h2.textContent = `Conteúdo ${counter} - Seção ${i + 1} (${name})`;
+          });
+          main.querySelectorAll('.card p').forEach((p, i) => {
+            p.textContent = `Este é um texto alterado para a transição "${name}". Atualização número ${counter}.`;
+          });
+          main.style.opacity = 1;
+        }, 500);
+      }
+    }
+  </script>
+</body>
+</html>

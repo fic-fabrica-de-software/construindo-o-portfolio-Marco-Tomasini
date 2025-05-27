@@ -8,13 +8,14 @@ body {
 }
 
 #rodape {
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    background-color: rgb(0, 0, 0);
-    height: 11.76%;
-    text-align: center;
+  view-transition-name: footer-content;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: rgb(0, 0, 0);
+  height: 11.76%;
+  text-align: center;
 }
 
 #rodape h1{
@@ -186,34 +187,26 @@ main {
   view-transition-name: main-content;
 }
 
-@keyframes move-out {
-  from {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  to {
-    opacity: 0.5;
-    transform: translateY(-35%);
-  }
+@keyframes expand-out {
+  from { transform: scale(1); opacity: 1; }
+  to { transform: scale(1.5); opacity: 0; }
+}
+@keyframes contract-in {
+  from { transform: scale(0.5); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+::view-transition-old(main-content) {
+  animation: expand-out 0.5s ease forwards;
+}
+::view-transition-new(main-content) {
+  animation: contract-in 0.8s ease forwards;
 }
 
-@keyframes move-in {
-  from{
-    clip-path: polygon (0% 100%, 100% 100%, 100% 100%, 0% 100%)
-  }
-
-  to{
-    clip-path: polygon (0% 100%, 100% 100%, 100% 0%, 0% 0%)
-  }
+::view-transition-old(footer-content) {
+  animation: expand-out 0.5s ease forwards;
 }
-
-::view-transition-old(root) {
-  animation: 1.5s cubic-bezier (0.87, 0, 0, 0.13, 1) both move-out;
-}
-
-::view-transition-new(root) {
-  animation: 1.5s cubic-bezier (0.87, 0, 0, 0.13, 1) both move-in;
+::view-transition-new(footer-content) {
+  animation: contract-in 0.8s ease forwards;
 }
 
 /*   Transições config END*/
