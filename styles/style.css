@@ -102,7 +102,7 @@ body {
   font-weight: 700;
   line-height: 128%; /* 128% */
 
-  margin-top: 0;
+  margin: 0;
   margin-left: 7.75rem;
 }
 
@@ -121,6 +121,101 @@ body {
   transition: 0.1s;
   font-size: 105%;
   opacity: 1;
-  filter: brightness(1.4);
+  filter: brightness(1.6);
   cursor: pointer;
 }
+
+.line{
+
+  width: 0.100rem;
+  background-color: white;
+  border: white;
+  color: white;
+
+  margin-left: 7.75rem;
+  margin-right: 2%;
+}
+
+.descricao{
+  -webkit-text-fill-color: white;
+  max-width: 43.063rem;
+}
+
+p{
+  margin: 0;
+}
+
+.redeS{
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+
+  width: 9rem;
+  height: 2.625rem;
+
+  background-color: black;
+  border: black;
+  border-radius: 20.5px;
+
+  margin-top: 1.2rem;
+  margin-left: 1rem;
+}
+
+.r1{
+  margin-left: 7.75rem;
+}
+
+.redeS p{
+  -webkit-text-fill-color: white;
+  margin-left: 5%;
+}
+
+.redes:hover{
+  cursor: pointer;
+}
+
+
+
+/*   Transições config */
+
+@view-transition {
+  navigation: auto;
+}
+
+main {
+  view-transition-name: main-content;
+}
+
+@keyframes move-out {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  to {
+    opacity: 0.5;
+    transform: translateY(-35%);
+  }
+}
+
+@keyframes move-in {
+  from{
+    clip-path: polygon (0% 100%, 100% 100%, 100% 100%, 0% 100%)
+  }
+
+  to{
+    clip-path: polygon (0% 100%, 100% 100%, 100% 0%, 0% 0%)
+  }
+}
+
+::view-transition-old(root) {
+  animation: 1.5s cubic-bezier (0.87, 0, 0, 0.13, 1) both move-out;
+}
+
+::view-transition-new(root) {
+  animation: 1.5s cubic-bezier (0.87, 0, 0, 0.13, 1) both move-in;
+}
+
+/*   Transições config END*/
+
+
