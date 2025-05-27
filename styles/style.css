@@ -57,57 +57,70 @@ body {
 }
 
 @media screen and (max-width: 768px) {
-    #rodape .grid {
-      gap: 0.75rem;
-    }
-    #rodape h1 {
-      font-size: clamp(1.1rem, 3vw, 2.2rem);
-    }
+  #rodape .grid {
+    gap: 0.75rem;
   }
-  
-  @media screen and (max-width: 480px) {
-    #rodape .grid {
-      gap: 0.75rem;
-    }
-    #rodape h1 {
-      font-size: clamp(0.5rem, 2vw, 1rem);
-    }
+  #rodape h1 {
+    font-size: clamp(1.1rem, 3vw, 2.2rem);
   }
+}
 
-  .gradient{
-    background: linear-gradient(90deg, #E017C5 2.02%, #8343C5 52.31%, #545AC5 77.46%, #3D429C 102.61%);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+@media screen and (max-width: 480px) {
+  #rodape .grid {
+    gap: 0.75rem;
   }
-
-  .gradient h1{
-    font-feature-settings: 'liga' off, 'clig' off;
-    font-family: "IBM Plex Sans Devanagari";
-    font-size: 12.5rem;
-    font-style: normal;
-    font-weight: 700;
-   line-height: 8rem; /* 64% */
-
-   margin-bottom: 0;
-   margin-left: 6.813rem;
-   margin-top: 14.563rem;
+  #rodape h1 {
+    font-size: clamp(0.5rem, 2vw, 1rem);
   }
+}
 
-  .gradient h2{
-    font-feature-settings: 'liga' off, 'clig' off;
-    font-family: "IBM Plex Sans Devanagari";
-    font-size: 8rem;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 128%; /* 128% */
+.gradient{
+  background: linear-gradient(90deg, #E017C5 2.02%, #8343C5 52.31%, #545AC5 77.46%, #3D429C 102.61%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
 
-    margin-top: 0;
-    margin-left: 7.75rem;
-  }
+.gradient h1{
+  font-feature-settings: 'liga' off, 'clig' off;
+  font-family: "IBM Plex Sans Devanagari";
+  font-size: 12.5rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 64%; /* 64% */
 
-  #perfil{
-    margin-left: 14rem;
-    width: 43.813rem;
-    height: 60.625rem;
-  }
+  margin-bottom: 0;
+  margin-left: 6.813rem;
+  margin-top: 14.563rem;
+}
+
+.gradient h2{
+  font-feature-settings: 'liga' off, 'clig' off;
+  font-family: "IBM Plex Sans Devanagari";
+  font-size: 8rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 128%; /* 128% */
+
+  margin-top: 0;
+  margin-left: 7.75rem;
+}
+
+#perfil{
+  margin-left: 14rem;
+  width: 43.813rem;
+  height: 60.625rem;
+}
+
+.buttonI{
+  background-color: black;
+  border: none;
+}
+
+.animate:hover{
+  transition: 0.1s;
+  font-size: 105%;
+  opacity: 1;
+  filter: brightness(1.4);
+  cursor: pointer;
+}
