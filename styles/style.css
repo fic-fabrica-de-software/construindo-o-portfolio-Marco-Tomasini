@@ -434,3 +434,45 @@ body { font-family: sans-serif; }
 .imgCarrosel {
   max-height: 60%;
 }
+
+/* Fim Carrosel de imagem */
+
+
+
+
+/* BANNER Robotics */
+.intro-banner {
+  position: relative;
+  height: 18.75rem;
+
+  background-image: url('../assets/images/roboticsPattern2.png');
+  background-repeat: no-repeat;
+  background-size: cover; /* ou 'contain' se quiser encaixar tudo */
+  background-position: center;
+
+
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  align-items: center;
+  text-align: center;
+
+  color: #fff;
+}
+
+.intro-banner h1 {
+  font-size: 3rem;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.125rem;
+}
+
+.intro-banner p {
+  font-size: 1.2rem;
+  margin-top: 0.5rem;
+  opacity: 0.85;
+}
+
+/* Fim BANNER Robotics */
