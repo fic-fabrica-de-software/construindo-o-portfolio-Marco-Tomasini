@@ -292,7 +292,7 @@ main {
 
 .M-circuloE {
   width: 20px;
-  transform: translate(-265%, -0%);
+  transform: translate(-310%, -0%);
   height: 20px;
   background-color: #E017C5;
   border-radius: 50%;
@@ -429,4 +429,8 @@ body { font-family: sans-serif; }
 
 .carrosel {
   margin-top: 5%;
+}
+
+.imgCarrosel {
+  max-height: 60%;
 }
